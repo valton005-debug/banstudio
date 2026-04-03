@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vesa & Veton | Ftesë</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root { --emerald: #043927; --gold: #c5a059; --bg: #fdfcf9; }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--emerald); text-align: center; }
+        
+        /* INTRO ZARFI */
+        #intro { 
+            position: fixed; inset: 0; z-index: 9999; 
+            background: var(--emerald); display: flex; 
+            flex-direction: column; justify-content: center; align-items: center; 
+            transition: 1s;
+        }
+        .envelope { 
+            width: 280px; height: 180px; background: white; 
+            border: 2px solid var(--gold); position: relative; 
+        }
+        .flap { 
+            position: absolute; top: 0; width: 100%; height: 100%; 
+            background: #eee; clip-path: polygon(0 0, 100% 0, 50% 60%); 
+            transition: 0.8s; z-index: 2;
+        }
+        .open-flap { transform: rotateX(180deg); opacity: 0; }
+        .seal { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60px; height: 60px; background: var(--gold); 
+            border-radius: 50%; z-index: 3; display: flex; 
+            align-items: center; justify-content: center; color: white; font-weight: bold;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* PERMBAJTJA */
+        #main { display: none; padding: 20px; }
+        .card { 
+            max-width: 500px; margin: 40px auto; padding: 40px 20px; 
+            background: white; border: 1px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+        }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 50px; margin: 10px 0; }
+        h2 { font-family: 'Cinzel', serif; font-size: 18px; letter-spacing: 3px; color: var(--gold); }
+        
+        .timer { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .unit { background: var(--emerald); color: white; padding: 10px; border-radius: 5px; min-width: 50px; }
+        .unit span { display: block; font-size: 1.2rem; font-weight: bold; }
+        .unit label { font-size: 0.6rem; }
+
+        .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; max-width: 250px; margin: 20px auto; }
+        .day { padding: 8px; font-size: 0.8rem; border: 1px solid #eee; }
+        .wed-day { background: var(--emerald); color: white; border-radius: 50%; font-weight: bold; }
+
+        .btn { 
+            display: inline-block; padding: 15px 30px; background: var(--emerald); 
+            color: white; text-decoration: none; font-weight: bold; margin-top: 20px;
+        }
+
+        .footer-ad { background: #011a12; color: white; padding: 40px 20px; margin-top: 60px; }
+        .footer-ad a { color: var(--gold); margin: 0 10px; text-decoration: none; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div id="intro">
+    <div class="envelope" id="env">
+        <div class="flap" id="flp"></div>
+        <div class="seal" onclick="startApp()">HAPE</div>
+    </div>
+    <p style="color: white; margin-top: 20px; font-family: 'Cinzel';">Vesa & Veton</p>
+</div>
+
+<div id="main">
+    <div class="card">
+        <h2>Ftesë për Martesë</h2>
+        <h1>Vesa & Veton</h1>
+        <p style="font-weight: bold; letter-spacing: 2px;">24 MAJ 2026</p>
+    </div>
+
+    <div class="card">
+        <p>Me kënaqësi ju ftojmë të merrni pjesë në martesën e <strong>Vesa & Veton</strong>.</p>
+        <p>Fillimi i një kapitulli të ri meriton një festë me njerëzit më të dashur. Me shumë dashuri dhe gëzim në zemrat tona, do të ishim të nderuar t’ju kishim pranë në mbrëmjen tonë të veçantë.</p>
+    </div>
+
+    <div class="card">
+        <p style="font-family: 'Cinzel'; font-size: 12px;">KOHA E MBETUR PËR DITËN E DASMËS</p>
+        <div class="timer">
+            <div class="unit"><span id="days">00</span><label>Ditë</label></div>
+            <div class="unit"><span id="hours">00</span><label>Orë</label></div>
+            <div class="unit"><span id="mins">00</span><label>Min</label></div>
+            <div class="unit"><span id="secs">00</span><label>Sek</label></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Vendi i Ngjarjes</h2>
+        <p><strong>Ora 19:00</strong></p>
+        <p>Restorant <strong>DRINI</strong>, Kumanovë</p>
+        <a href="https://www.google.com/maps/search/Restorant+Drini+Kumanove" target="_blank" class="btn">HAP LOKACIONIN</a>
+    </div>
+
+    <div class="card">
+        <h2>Maj 2026</h2>
+        <div class="calendar" id="cal"></div>
+        <p style="font-style: italic; margin-top: 20px;">Prania juaj do ta bëjë këtë ditë edhe më të bukur.</p>
+    </div>
+
+    <div class="card">
+        <h2>Konfirmimi</h2>
+        <p>Ju presim me padurim! <br> Me dashuri, <strong>Veton & Vesa 💛</strong></p>
+        <a href="https://wa.me/38970123456?text=Konfirmojme pjesemarrjen" class="btn">KONFIRMO NË WHATSAPP</a>
+    </div>
+
+    <div class="footer-ad">
+        <p style="font-size: 0.8rem;"><strong>Ban Studio Planner</strong> krijon ftesa digjitale interaktive.</p>
+        <a href="https://www.instagram.com/banstudioplanner" target="_blank">INSTAGRAM</a>
+        <a href="https://www.tiktok.com/@banstudioplaner" target="_blank">TIKTOK</a>
+    </div>
+</div>
+
+<script>
+    function startApp() {
+        document.getElementById('flp').classList.add('open-flap');
+        setTimeout(() => {
+            document.getElementById('intro').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('intro').style.display = 'none';
+                document.getElementById('main').style.display = 'block';
+                runTimer();
+                drawCalendar();
+            }, 500);
+        }, 600);
+    }
+
+    function runTimer() {
+        const target = new Date("May 24, 2026 19:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const d = target - now;
+            document.getElementById("days").innerText = Math.floor(d / (1000*60*60*24));
+            document.getElementById("hours").innerText = Math.floor((d % (1000*60*60*24)) / (1000*60*60));
+            document.getElementById("mins").innerText = Math.floor((d % (1000*60*60)) / (1000*60));
+            document.getElementById("secs").innerText = Math.floor((d % (1000*60)) / 1000);
+        }, 1000);
+    }
+
+    function drawCalendar() {
+        const cal = document.getElementById("cal");
+        const header = ["D", "H", "M", "M", "E", "P", "S"];
+        header.forEach(h => cal.innerHTML += `<div><strong>${h}</strong></div>`);
+        const offset = new Date(2026, 4, 1).getDay();
+        for(let i=0; i<offset; i++) cal.innerHTML += `<div></div>`;
+        for(let i=1; i<=31; i++) {
+            cal.innerHTML += `<div class="${i===24 ? 'wed-day' : 'day'}">${i}</div>`;
+        }
+    }
+</script>
+
+</body>
+</html>
